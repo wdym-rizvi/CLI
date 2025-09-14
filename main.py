@@ -162,7 +162,6 @@ fake_boot_sequence()
 sleep(1)  # Pause before clearing the consoles
 # Clear console again
 upg.clear()
-
 #-------------------------------------------------------------------------------
 
 #Printing Banner

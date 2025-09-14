@@ -19,6 +19,9 @@ def inputInt(prompt: str, color: str = "cyan", delay: float = 0.05) -> int:
 
     Returns:
         int: The integer entered by the user.
+
+    Examples:
+        number = typewrite("Hello, World!", "Bold Green", 0.1)
     """
     # Print prompt with animation
     for char in prompt:
