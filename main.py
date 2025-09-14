@@ -152,7 +152,13 @@ play_sound("startup.wav")
 upg.typewrite("Starting CLI APP...", "Bold Green", 0.1)
 
 sleep(2.5)  # Wait for 2 seconds to let the sound play
-fake_boot_sequence()  # Simulate boot sequence
+
+# Simulate fake Loading
+upg.percent_loader(random.randint(1,6), "green")
+
+# simulate fake boot sequence
+fake_boot_sequence()
+
 sleep(1)  # Pause before clearing the consoles
 # Clear console again
 upg.clear()
