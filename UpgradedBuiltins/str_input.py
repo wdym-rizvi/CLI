@@ -30,17 +30,14 @@ def inputStr(prompt: str, color: str = "cyan", delay: float = 0.05) -> str:
         sleep(delay)
     sys.stdout.flush()
 
-    # Loop until valid string input is received
+    # Loop until valid input is received
     while True:
         try:
-            str_ = input().strip()
-            if str_:  # Only accept non-empty strings
-                return str_
-            else:
-                raise ValueError
-        except ValueError:
-            # Print error message with animation
+            str_ = input()  # Take input from user
+            break
+        except:
             for char in ERROR_STR:
-                console.print(char, style="red", end="", highlight=False)
+                console.print(char, style="Red", end="", highlight=False)
                 sleep(delay)
-            sys.stdout.flush()
+
+    return str_  # Return the input string
