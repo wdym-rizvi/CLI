@@ -1,28 +1,38 @@
 from time import sleep
 from rich.console import Console
-from rich.text import Text
 import sys
-import os
 
 # Initialize Rich Console
 console = Console()
 
 # Error message for invalid input
-error="Enter a valid Number: "
+ERROR_MSG = "Enter a valid Number: "
 
-# Function to get integer input with animated prompt
-def inputInt(prompt: str, color: str, delay: float):
+def inputInt(prompt: str, color: str = "cyan", delay: float = 0.05) -> int:
+    """
+    Prompt the user for an integer input with animated colored text.
+
+    Args:
+        prompt (str): The message to display before user input.
+        color (str): Rich color style for the prompt text.
+        delay (float): Delay between printing each character (for animation).
+
+    Returns:
+        int: The integer entered by the user.
+    """
+    # Print prompt with animation
     for char in prompt:
         console.print(char, style=color, end="", highlight=False)
         sleep(delay)
     sys.stdout.flush()
-    # Loop until valid input is received
+
+    # Loop until valid integer input is received
     while True:
         try:
-            int_ = int(input()) # Take input from user and convert to int
-            break
-        except:
-            for char in error:
-                console.print(char, style="Red", end="", highlight=False)
+            return int(input())  # Return immediately if valid
+        except ValueError:
+            # Print error message with animation
+            for char in ERROR_MSG:
+                console.print(char, style="red", end="", highlight=False)
                 sleep(delay)
-    return int_ # Return the input integer
+            sys.stdout.flush()

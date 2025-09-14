@@ -2,4 +2,5 @@ import os
 import sys
 
 def clear():
-    os.system('cls' if sys.platform == 'win32' else 'clear')
+    """Clear the terminal screen (cross-platform)."""
+    os.system("cls" if sys.platform == "win32" else "clear")
