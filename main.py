@@ -92,34 +92,50 @@ def play_sound(sound):
 # Function to simulate a fake boot sequence
 
 def fake_boot_sequence():
-    logs = [
-        "Initializing core modules...",
-        "Importing UpgradedBuiltins...",
-        "Loaded config.json successfully",
-        "Checking environment variables...",
-        "Added registry keys...",
-        "Importing rich.console...",
-        "Loading Functions package...",
-        "Memory mapping completed",
-        "Establishing secure channel...",
-        "System entropy pool updated",
-        "Optimizing runtime performance...",
-        "Patching I/O buffer...",
-        "Verifying digital signatures...",
-        "Mounted virtual disk...",
-        "Fetching remote resources...",
-        "Encrypting temporary cache...",
-        "Registry entries updated",
-        "Allocating virtual memory...",
-        "Loading ASCII art renderer...",
-        "CLI environment ready",
+    words = [
+        "Initializing", "Loading", "Verifying", "Updating", "Encrypting",
+        "Allocating", "Mapping", "Checking", "Fetching", "Patching",
+        "Optimizing", "Flushing", "Compiling", "Resolving", "Registering",
+        "Scanning", "Mounting", "Importing", "Executing", "Analyzing"
     ]
 
-    for i in range(2000):  # print 2000 fake lines
-        msg = random.choice(logs)
-        style = random.choice(["bold Red", "dark_green"])
-        console.print(f"[{style}] [BOOT] {msg}")
-        time.sleep(0.0005)  # small random delay
+    objects = [
+        "kernel", "driver.sys", "ntoskrnl.exe", "registry hive",
+        "I/O buffer", "virtual disk", "entropy pool", "dll cache",
+        "crypto module", "bootloader", "scheduler", "network stack",
+        "secure channel", "heap memory", "config.json", "ascii renderer",
+        "pointer table", "task scheduler", "system call table"
+    ]
+
+    for _ in range(2000):  # number of fake lines
+        w = random.choice(words)
+        o = random.choice(objects)
+
+        # Random hex, binary, registry-like entries
+        hex_data = hex(random.randint(0x1000, 0xFFFFF))
+        bin_data = bin(random.randint(0, 255))[2:].zfill(8)
+        reg_path = f"HKEY_LOCAL_MACHINE\\SYSTEM\\{random.randint(1000,9999)}\\{random.randint(10,99)}"
+
+        # Random log templates
+        templates = [
+            f"[BOOT] {w} {o}... done.",
+            f"[SYS] {o} -> {hex_data}",
+            f"[INFO] {w} {o} at 0x{random.randint(10000,999999):X}",
+            f"[DEBUG] {o} [{bin_data}]",
+            f"[REG] Writing {reg_path}",
+            f"[MEM] Allocated {random.randint(32,8192)} KB for {o}",
+            f"[CACHE] {w} temporary segment {hex_data}",
+            f"[DRIVER] Loaded {o} successfully",
+            f"[NET] Handshake complete: {hex_data}:{random.randint(1000,65000)}",
+            f"[FS] Mounted volume {random.choice(['C:', 'D:', 'E:'])}\\",
+            f"[PROC] PID {random.randint(100,9999)} started: {o}",
+            f"[SIGN] Verified SHA256: {hex(random.getrandbits(128))}",
+        ]
+
+        msg = random.choice(templates)
+        print(msg)
+
+        time.sleep(random.uniform(0.0002, 0.002))  # varied realistic delay
 
 #-------------------------------------------------------------------------------
 
