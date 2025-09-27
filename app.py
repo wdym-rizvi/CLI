@@ -11,6 +11,7 @@ import os
 import json
 from rich.console import Console
 from time import sleep
+import threading
 import Functions.get_public_ip as option01
 import Functions.get_local_ip as option02
 import Functions.system_info as option03
@@ -27,6 +28,8 @@ import Functions.traceroute as option13
 import Functions.dns_lookup as option14
 import Functions.whois_lookup as option15
 import Functions.zip_folder as option16
+# import Functions.image_download as option17
+# import Functions.soon as soon
 import random, time
 #-------------------------------------------------------------------------------
 #External Libraries Check and Install
@@ -76,7 +79,7 @@ menu_actions = {
     14: option14.run,
     15: option15.run,
     16: option16.run,
-    99: lambda: console.print("CLI APP Version 1.0\nCoded by Rizvi\nAll rights reserved © 2025", style="bold cyan"),
+    99: lambda: console.print("CLI APP Version 1.0\nCoded by Rizvi\nAll rights reserved © 2025\nVisit: https://crackserver.doraemonh413.workers.dev\nUsername & Pass: CrackServer", style="bold cyan"),
 }
 
 # Function to play sound in a separate thread
@@ -137,6 +140,75 @@ def fake_boot_sequence():
 
         time.sleep(random.uniform(0.0002, 0.002))  # varied realistic delay
 
+# JSON file to store user preference
+MUSIC_CONFIG = "music.json"
+
+# Music list (put your .mp3/.wav paths here)
+MUSIC_FILES = [
+    "music/aura-song.mp3",
+    "music/montagem-bandido.mp3",
+    "music/ladrao",
+    "music/montagem-xonada.mp3",
+    "music/nada-nada.mp3",
+    "vem-no-piquie.mp3"
+]
+
+MUSIC_CONFIG = os.path.join("configs", "music.json")
+
+def init_music_settings():
+    """
+    Ensure configs/music.json exists.
+    If empty/missing, ask user for preference and save it.
+    Returns True if music should play, False otherwise.
+    """
+    # make sure configs/ folder exists
+    os.makedirs(os.path.dirname(MUSIC_CONFIG), exist_ok=True)
+
+    if not os.path.exists(MUSIC_CONFIG) or os.stat(MUSIC_CONFIG).st_size == 0:
+        choice = input("🎵 Do you want background Phonk music? (y/n): ").strip().lower()
+        music_enabled = True if choice == "y" else False
+        with open(MUSIC_CONFIG, "w") as f:
+            json.dump({"music_enabled": music_enabled}, f)
+        return music_enabled
+    else:
+        with open(MUSIC_CONFIG, "r") as f:
+            try:
+                data = json.load(f)
+                return data.get("music_enabled", False)
+            except json.JSONDecodeError:
+                return False
+
+def play_music_loop():
+    """
+    Plays music in background forever.
+    Randomly loops through MUSIC_FILES.
+    """
+    if not MUSIC_FILES:
+        return
+
+    pygame.mixer.init()
+    while True:
+        track = random.choice(MUSIC_FILES)
+        try:
+            pygame.mixer.music.load(track)
+            pygame.mixer.music.play()
+            # wait until this track finishes
+            while pygame.mixer.music.get_busy():
+                time.sleep(1)
+        except Exception as e:
+            time.sleep(1)
+
+def start_music_if_enabled():
+    """
+    Run music in a separate daemon thread if enabled.
+    """
+    enabled = init_music_settings()
+    if enabled:
+        t = threading.Thread(target=play_music_loop, daemon=True)
+        t.start()
+    else:
+        print()
+
 #-------------------------------------------------------------------------------
 
 # Clear the console at the start
@@ -146,7 +218,7 @@ upg.clear()
 #-------------------------------------------------------------------------------
 
 # Play a system sound when program starts
-play_sound("startup.wav")
+play_sound("music/startup.wav")
 
 # Initial Message
 upg.typewrite("Starting CLI APP...", "Bold Green", 0.1)
@@ -189,23 +261,29 @@ print()
 
 # Check if program is run for the first time or config.json is empty
 
-config_file = "config.json"
+# Path inside configs folder
+CONFIG_FILE = os.path.join("configs", "config.json")
+
+# Ensure configs folder exists
+os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
 
 # Check if config.json exists and is not empty
-if not os.path.exists(config_file) or os.stat(config_file).st_size == 0:
+if not os.path.exists(CONFIG_FILE) or os.stat(CONFIG_FILE).st_size == 0:
     # Ask for name first time
     x = upg.inputStr("Enter your name: ", "Yellow", 0.1)
     # Save into JSON
-    with open(config_file, "w") as f:
+    with open(CONFIG_FILE, "w") as f:
         json.dump({"name": x}, f, indent=4)
 else:
     # Load existing name
-    with open(config_file, "r") as f:
+    with open(CONFIG_FILE, "r") as f:
         data = json.load(f)
         x = data["name"]
 
 upg.marquee(f"Hello, {x}!", 1, 0.1, "Cyan") # Greet the user
 print() # New line for better readability
+start_music_if_enabled()  # Start music if enabled in settings
+#-------------------------------------------------------------------------------
 
 while True:
     upg.clear() # Clear the console
@@ -243,6 +321,7 @@ while True:
     console.print("[cyan][06][/cyan] Screenshot          [cyan][14][/cyan] DNS Lookup")
     console.print("[cyan][07][/cyan] Website Screenshot  [cyan][15][/cyan] WHOIS Lookup")
     console.print("[cyan][08][/cyan] Hostname            [cyan][16][/cyan] Zip Folder")
+    # console.print("[cyan][17][/cyan] Bulk Image Download [cyan][18][/cyan] Soon")
 
     console.print("\n[yellow][99][/yellow] About         [yellow][00][/yellow] Exit\n")
 
