@@ -84,6 +84,16 @@ def run():
         99: lambda: console.print("CLI APP Version 1.0\nCoded by Rizvi\nAll rights reserved © 2025\nVisit: https://crackserver.doraemonh413.workers.dev\nUsername & Pass: CrackServer", style="bold cyan"),
     }
 
+    def load_music_list():
+        config_path = os.path.join("configs", "music_list.json")
+        try:
+            with open(config_path, "r") as f:
+                data = json.load(f)
+                return data.get("MUSIC_FILES", [])
+        except Exception as e:
+            print(f"⚠️ Failed to load music list: {e}")
+            return []
+        
     # Function to play sound in a separate thread
     def play_sound(sound):
         try:
@@ -145,15 +155,8 @@ def run():
     # JSON file to store user preference
     MUSIC_CONFIG = "music.json"
 
-    # Music list (put your .mp3/.wav paths here)
-    MUSIC_FILES = [
-        "music/aura-song.mp3",
-        "music/montagem-bandido.mp3",
-        "music/ladrao",
-        "music/montagem-xonada.mp3",
-        "music/nada-nada.mp3",
-        "vem-no-piquie.mp3"
-    ]
+    # Music list (put your .mp3/.wav paths inside configs/music_list.json)
+    MUSIC_FILES = load_music_list()
 
     MUSIC_CONFIG = os.path.join("configs", "music.json")
 
