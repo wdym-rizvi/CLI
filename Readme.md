@@ -46,6 +46,7 @@ CLI_APP/
 │── run.py                  # Main entry point
 |── app.py                  # Mian App Logic
 |── requirements.txt
+|── Readme.md
 |── app.ico                 # Icon for .exe
 │── creds/
 |   └── credentials.json    # Encrypted Credentials
