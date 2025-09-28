@@ -28,6 +28,7 @@ import Functions.traceroute as option13
 import Functions.dns_lookup as option14
 import Functions.whois_lookup as option15
 import Functions.zip_folder as option16
+import Functions.settings as option17
 # import Functions.image_download as option17
 # import Functions.soon as soon
 import random, time
@@ -79,6 +80,7 @@ menu_actions = {
     14: option14.run,
     15: option15.run,
     16: option16.run,
+    17: option17.run,
     99: lambda: console.print("CLI APP Version 1.0\nCoded by Rizvi\nAll rights reserved © 2025\nVisit: https://crackserver.doraemonh413.workers.dev\nUsername & Pass: CrackServer", style="bold cyan"),
 }
 
@@ -321,7 +323,7 @@ while True:
     console.print("[cyan][06][/cyan] Screenshot          [cyan][14][/cyan] DNS Lookup")
     console.print("[cyan][07][/cyan] Website Screenshot  [cyan][15][/cyan] WHOIS Lookup")
     console.print("[cyan][08][/cyan] Hostname            [cyan][16][/cyan] Zip Folder")
-    # console.print("[cyan][17][/cyan] Bulk Image Download [cyan][18][/cyan] Soon")
+    console.print("[cyan][17][/cyan] Settings [cyan]     [18][/cyan] Soon")
 
     console.print("\n[yellow][99][/yellow] About         [yellow][00][/yellow] Exit\n")
 

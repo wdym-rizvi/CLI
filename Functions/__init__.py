@@ -15,3 +15,4 @@ from .traceroute import run # 13
 from .dns_lookup import run # 14
 from .whois_lookup import run # 15
 from .zip_folder import run # 16
+from .settings import run # 17
