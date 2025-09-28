@@ -10,9 +10,9 @@ import json
 import os
 import UpgradedBuiltins as upg
 import time
-import subprocess
 import sys
 import threading
+from app import run  # import run() from app.py
 
 #------------------------------------------------------
 # External Libraries check and install
@@ -151,15 +151,14 @@ def login():
         upg.typewrite("Login aborted or time expired. Exiting...", "red", 0.05)
     sys.exit(1)
 
+
 if __name__ == "__main__":
     success = login()
     if success:
-        # clear timer line before handoff
         clear_timer_line()
-        # launch mainapp and exit auth
         try:
-            subprocess.Popen([sys.executable, "app.py"])
+            run()  # directly call function
         except Exception as e:
-            upg.typewrite("Failed to launch mainapp.py: " + str(e), "Bold Red")
+            upg.typewrite("Failed to launch app: " + str(e), "Bold Red")
             sys.exit(1)
         sys.exit(0)
