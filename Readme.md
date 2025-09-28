@@ -106,7 +106,7 @@ CLI_APP/
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/cli-app.git
+   git clone https://github.com/wdym-rizvi/CLI.git
    cd CLI
    ```
 
