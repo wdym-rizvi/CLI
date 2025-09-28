@@ -1,31 +1,65 @@
-# 📂 Configs
+# ⚙️ Configs Directory
 
-This folder stores configuration files for the CLI APP.
+This folder contains configuration files used by **CLI_APP**.
+All settings are stored in JSON format so they can be easily edited without modifying the source code.
 
-## Files
+---
 
-* **`config.json`**
-  Stores user-specific data such as the saved username.
-  Example:
+## 📂 Files
+
+### 1. `config.json`
+
+* Stores user-related settings.
+* Example:
 
   ```json
   {
-    "name": "UserXYZ"
+    "name": "Burhan"
   }
   ```
+* You can change the `name` value to update your username in the app.
 
-* **`music.json`**
-  Controls background music preferences.
-  Example:
+---
+
+### 2. `music.json`
+
+* Stores whether startup music/sounds are enabled.
+* Example:
 
   ```json
   {
     "music_enabled": true
   }
   ```
+* Set `"music_enabled": false` to disable music.
+* Takes effect **the next time you run the app**.
 
-## Notes
+---
 
-* Both files are created automatically on the first run if they don’t exist.
-* You can manually edit them with a text editor, or use the **Settings** option in the CLI APP to update values.
-* Deleting either file will reset its settings and prompt the app to re-create it on the next run.
+### 3. `music_list.json`
+
+* Defines the list of music files available to the app.
+* Example:
+
+  ```json
+  {
+    "MUSIC_FILES": [
+      "music/aura-song.mp3",
+      "music/montagem-bandido.mp3",
+      "music/ladrao",
+      "music/montagem-xonada.mp3",
+      "music/nada-nada.mp3",
+      "vem-no-piquie.mp3"
+    ]
+  }
+  ```
+* Add or remove tracks here to customize the app’s playlist.
+* Paths should be relative to the project root (e.g. `"music/filename.mp3"`).
+
+---
+
+## 🛠️ Notes
+
+* All JSON files must be **valid JSON** (use quotes for strings, commas between items, etc.).
+* Incorrect formatting will cause the app to fail when reading configs.
+* Always restart the app after making changes.
